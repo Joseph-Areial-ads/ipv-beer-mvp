@@ -79,12 +79,19 @@ def orders():
             flash("Confira os dados do pedido e tente novamente.", "error")
         else:
             with get_db() as db:
-                db.execute("""INSERT INTO orders
-                    (customer_id, product, quantity, unit_price, status, created_at)
-                    VALUES (?, ?, ?, ?, 'Pendente', ?)""",
-                    (customer_id, product, quantity, unit_price, date.today().isoformat()))
-                db.commit()
-            flash("Pedido registrado com sucesso.", "success")
+                custumer = db.execute(
+                    "SELECT id FROM customers WHERE id = ? , (customer_id,)
+                ).fetchone()
+
+                if customer is none:
+                    flash("selecione um cliente cadastrado.", "error")
+                else:
+                    db.execute("""INSERT INTO orders
+                        (customer_id, product, quantity, unit_price, status, created_at)
+                        VALUES (?, ?, ?, ?, 'Pendente', ?)""",
+                        (customer_id, product, quantity, unit_price, date.today().isoformat()))
+                    db.commit()
+                    flash("Pedido registrado com sucesso.", "success")
         return redirect(url_for("orders"))
     with get_db() as db:
         customers_list = db.execute("SELECT * FROM customers ORDER BY name").fetchall()
