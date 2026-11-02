@@ -55,8 +55,8 @@ def customers():
         name = request.form.get("name", "").strip()
         phone = request.form.get("phone", "").strip()
         address = request.form.get("address", "").strip()
-        if not name:
-            flash("Informe o nome do cliente.", "error")
+        if not name or not phone:
+            flash("Informe o nome e o telefone do cliente.", "error")
         else:
             with get_db() as db:
                 db.execute("INSERT INTO customers (name, phone, address) VALUES (?, ?, ?)",
