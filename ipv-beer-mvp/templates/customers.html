@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Clientes</h1>
+<section class="panel">
+  <h2>Cadastrar cliente</h2>
+  <form method="post" class="form-grid">
+    <label>Nome completo<input name="name" maxlength="120" required></label>
+    <label>Telefone<input name="phone" maxlength="30" placeholder="(00) 00000-0000"></label>
+    <label class="wide">Endereço<input name="address" maxlength="200" placeholder="Rua, número e bairro"></label>
+    <button class="button" type="submit">Salvar cliente</button>
+  </form>
+</section>
+<section class="panel">
+  <h2>Clientes cadastrados</h2>
+  {% if customers %}
+  <div class="table-wrap"><table><thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th></tr></thead><tbody>
+  {% for c in customers %}<tr><td>{{ c.name }}</td><td>{{ c.phone or '—' }}</td><td>{{ c.address or '—' }}</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<p class="empty">Nenhum cliente cadastrado.</p>{% endif %}
+</section>
+{% endblock %}

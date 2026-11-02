@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Pedidos</h1>
+<section class="panel">
+  <h2>Registrar pedido</h2>
+  {% if customers %}
+  <form method="post" class="form-grid">
+    <label class="wide">Cliente<select name="customer_id" required><option value="">Selecione</option>{% for c in customers %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}</select></label>
+    <label>Produto<input name="product" required maxlength="100" placeholder="Ex.: Água mineral 20 litros"></label>
+    <label>Quantidade<input name="quantity" type="number" min="1" value="1" required></label>
+    <label>Preço unitário (R$)<input name="unit_price" type="number" min="0" step="0.01" required></label>
+    <button class="button" type="submit">Registrar pedido</button>
+  </form>
+  {% else %}<p class="empty">Cadastre pelo menos um cliente antes de registrar pedidos. <a href="{{ url_for('customers') }}">Cadastrar cliente</a>.</p>{% endif %}
+</section>
+<section class="panel">
+  <h2>Histórico de pedidos</h2>
+  {% if orders %}
+  <div class="table-wrap"><table><thead><tr><th>Data</th><th>Cliente</th><th>Produto</th><th>Qtd.</th><th>Total</th><th>Status</th><th>Atualizar</th></tr></thead><tbody>
+  {% for o in orders %}<tr>
+    <td>{{ o.created_at }}</td><td>{{ o.customer_name }}</td><td>{{ o.product }}</td><td>{{ o.quantity }}</td>
+    <td>R$ {{ '%.2f'|format(o.quantity * o.unit_price) }}</td><td><span class="status">{{ o.status }}</span></td>
+    <td><form method="post" action="{{ url_for('update_status', order_id=o.id) }}" class="inline-form">
+      <select name="status" aria-label="Status do pedido">
+        {% for s in ['Pendente', 'Em entrega', 'Entregue', 'Cancelado'] %}<option value="{{ s }}" {% if o.status == s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+      </select><button class="small-button" type="submit">Salvar</button>
+    </form></td>
+  </tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<p class="empty">Nenhum pedido registrado.</p>{% endif %}
+</section>
+{% endblock %}

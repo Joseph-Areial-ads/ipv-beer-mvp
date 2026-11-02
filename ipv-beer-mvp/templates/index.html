@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">PAINEL DE CONTROLE</p>
+  <h1>Gestão simples para a IPV Beer</h1>
+  <p>Acompanhe clientes, pedidos e entregas em um só lugar.</p>
+</section>
+<section class="stats">
+  <article><span>Clientes cadastrados</span><strong>{{ customers }}</strong></article>
+  <article><span>Pedidos registrados</span><strong>{{ orders }}</strong></article>
+  <article><span>Pedidos pendentes</span><strong>{{ pending }}</strong></article>
+  <article><span>Vendas entregues</span><strong>R$ {{ '%.2f'|format(total) }}</strong></article>
+</section>
+<section class="panel">
+  <div class="panel-head"><h2>Pedidos recentes</h2><a class="button" href="{{ url_for('orders') }}">Ver pedidos</a></div>
+  {% if latest %}
+  <div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Produto</th><th>Qtd.</th><th>Status</th></tr></thead>
+  <tbody>{% for item in latest %}<tr><td>{{ item.customer_name }}</td><td>{{ item.product }}</td><td>{{ item.quantity }}</td><td><span class="status">{{ item.status }}</span></td></tr>{% endfor %}</tbody></table></div>
+  {% else %}<p class="empty">Ainda não há pedidos cadastrados. Comece cadastrando um cliente e registrando o primeiro pedido.</p>{% endif %}
+</section>
+{% endblock %}
