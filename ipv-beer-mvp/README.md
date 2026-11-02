@@ -28,3 +28,16 @@ O banco `ipvbeer.db` é criado automaticamente na primeira execução.
 
 ## Observações
 Este projeto é um MVP acadêmico para demonstração. Utilize dados fictícios durante testes. Antes de uso comercial, implemente autenticação, cópias de segurança, validações adicionais e proteção adequada dos dados.
+## Funcionalidades do sistema
+
+O sistema IPV Beer foi desenvolvido para auxiliar no gerenciamento de uma distribuidora de água mineral.
+
+Principais funcionalidades:
+- Cadastro e gerenciamento de clientes.
+- Registro e acompanhamento de pedidos.
+- Controle do status dos pedidos.
+- Visualização de informações no painel principal.
+
+## Objetivo
+
+Facilitar a organização das vendas, melhorar o atendimento aos clientes e tornar o controle dos pedidos mais eficiente.
