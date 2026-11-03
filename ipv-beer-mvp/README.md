@@ -41,3 +41,9 @@ Principais funcionalidades:
 ## Objetivo
 
 Facilitar a organização das vendas, melhorar o atendimento aos clientes e tornar o controle dos pedidos mais eficiente.
+
+## Revisão técnica
+
+O projeto IPV Beer utiliza Python com Flask para organizar as funcionalidades do sistema, SQLite para armazenar os dados e HTML e CSS para a interface. A estrutura busca manter o código organizado, facilitar a manutenção e permitir futuras melhorias.
+
+A revisão técnica considera a validação dos dados dos clientes e pedidos, a organização das rotas e a segurança no armazenamento das informações.
